@@ -35,12 +35,12 @@ struct source
         try
         {
             last_value_ = get();
-            SPDLOG_TRACE("[{}] last_value is {}", static_cast<void *>(this), last_value_);
+            SPDLOG_TRACE("[{}] last_value is {}", fmt::ptr(this), last_value_);
         }
         catch (...)
         {
             last_value_.reset();
-            SPDLOG_DEBUG("[{}] source::get() threw, last_value reset'd", static_cast<void *>(this));
+            SPDLOG_DEBUG("[{}] source::get() threw, last_value reset'd", fmt::ptr(this));
         }
     }
 
@@ -143,8 +143,7 @@ struct fan
             }
             catch (std::bad_optional_access const &e)
             {
-                SPDLOG_WARN("[{}] : Source {} has no value, skipping update", static_cast<void *>(this),
-                            static_cast<void const *>(d.src));
+                SPDLOG_WARN("[{}] : Source {} has no value, skipping update", fmt::ptr(this), fmt::ptr(d.src));
                 return;
             }
         }
